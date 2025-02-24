@@ -242,13 +242,13 @@ window.Quarto = {
 
 
 <p>First, I am going to load in the Penguin Data and take a look at the data we are given.</p>
-<div id="cell-2" class="cell" data-execution_count="15">
+<div id="cell-2" class="cell" data-execution_count="103">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>train_url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/PhilChodrow/ml-notes/main/data/palmer-penguins/train.csv"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> pd.read_csv(train_url)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="103">
 <div>
 
 
@@ -383,7 +383,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Now, I’ll use the code that was provided to one-hot ‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍encode the categorical features. I’ve also decided to remove rows the have N/A because we haven’t learned how to impude the missing values yet.</p>
-<div id="cell-5" class="cell" data-execution_count="19">
+<div id="cell-5" class="cell" data-execution_count="104">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>le <span class="op">=</span> LabelEncoder()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>le.fit(train[<span class="st">"Species"</span>])</span>
@@ -400,7 +400,7 @@ window.Quarto = {
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> prepare_data(train)</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>y_train</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div class="cell-output cell-output-display" data-execution_count="104">
 <pre><code>array([1, 1, 2, 2, 1, 0, 0, 1, 2, 1, 0, 1, 0, 1, 1, 2, 0, 2, 2, 2, 2, 0,
        0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 2, 2, 1, 1, 2, 2, 1, 0,
        0, 2, 2, 1, 2, 2, 1, 2, 0, 0, 2, 2, 0, 1, 2, 2, 1, 2, 1, 2, 2, 2,
@@ -415,13 +415,13 @@ window.Quarto = {
        0, 1, 0, 0, 2, 1, 0, 0, 0, 2, 0, 0, 0, 1])</code></pre>
 </div>
 </div>
-<div id="cell-6" class="cell">
+<div id="cell-6" class="cell" data-execution_count="105">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>X_train.to_csv(<span class="st">"X_Train.csv"</span>, index <span class="op">=</span> <span class="va">False</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(y_train, columns<span class="op">=</span>[<span class="st">"Species"</span>]).to_csv(<span class="st">"y_train.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, I am going to merge the column with the species onto my new dataset.</p>
-<div id="cell-8" class="cell" data-execution_count="27">
+<div id="cell-8" class="cell" data-execution_count="106">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -442,7 +442,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="28">
+<div id="cell-9" class="cell" data-execution_count="107">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot: Flipper Length Distribution (with hue)</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">"Species"</span>, y<span class="op">=</span><span class="st">"Flipper Length (mm)"</span>, ax<span class="op">=</span>ax)</span>
@@ -457,7 +457,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="29">
+<div id="cell-10" class="cell" data-execution_count="108">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>summary_table <span class="op">=</span> df.groupby(<span class="st">"Species"</span>).aggregate({</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Culmen Length (mm)"</span>: [<span class="st">"mean"</span>, <span class="st">"std"</span>],</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Culmen Depth (mm)"</span>: [<span class="st">"mean"</span>, <span class="st">"std"</span>],</span>
@@ -465,7 +465,7 @@ window.Quarto = {
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Body Mass (g)"</span>: [<span class="st">"mean"</span>, <span class="st">"std"</span>]</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>summary_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="29">
+<div class="cell-output cell-output-display" data-execution_count="108">
 <div>
 
 
@@ -541,7 +541,574 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>JACKSON HANSON This is an example of the blog posts that you’ll submit as your primary form of learning demonstration in CSCI 0451. I created this post by modifying the file <code>posts/example-blog-post/index.ipynb</code> in VSCode. You can also use JupyterLab for this editing if you prefer. Finally, it is possible to write blog posts without using notebooks by writing <code>.qmd</code> files, as illustrated <a href="https://quarto.org/docs/get-started/hello/vscode.html">here</a>.</p>
+<div id="cell-11" class="cell" data-execution_count="109">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>X_train</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="109">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Culmen Length (mm)</th>
+<th data-quarto-table-cell-role="th">Culmen Depth (mm)</th>
+<th data-quarto-table-cell-role="th">Flipper Length (mm)</th>
+<th data-quarto-table-cell-role="th">Body Mass (g)</th>
+<th data-quarto-table-cell-role="th">Delta 15 N (o/oo)</th>
+<th data-quarto-table-cell-role="th">Delta 13 C (o/oo)</th>
+<th data-quarto-table-cell-role="th">Island_Biscoe</th>
+<th data-quarto-table-cell-role="th">Island_Dream</th>
+<th data-quarto-table-cell-role="th">Island_Torgersen</th>
+<th data-quarto-table-cell-role="th">Stage_Adult, 1 Egg Stage</th>
+<th data-quarto-table-cell-role="th">Clutch Completion_No</th>
+<th data-quarto-table-cell-role="th">Clutch Completion_Yes</th>
+<th data-quarto-table-cell-role="th">Sex_FEMALE</th>
+<th data-quarto-table-cell-role="th">Sex_MALE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>40.9</td>
+<td>16.6</td>
+<td>187.0</td>
+<td>3200.0</td>
+<td>9.08458</td>
+<td>-24.54903</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>49.0</td>
+<td>19.5</td>
+<td>210.0</td>
+<td>3950.0</td>
+<td>9.53262</td>
+<td>-24.66867</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>50.0</td>
+<td>15.2</td>
+<td>218.0</td>
+<td>5700.0</td>
+<td>8.25540</td>
+<td>-25.40075</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>45.8</td>
+<td>14.6</td>
+<td>210.0</td>
+<td>4200.0</td>
+<td>7.79958</td>
+<td>-25.62618</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>51.0</td>
+<td>18.8</td>
+<td>203.0</td>
+<td>4100.0</td>
+<td>9.23196</td>
+<td>-24.17282</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">270</td>
+<td>51.1</td>
+<td>16.5</td>
+<td>225.0</td>
+<td>5250.0</td>
+<td>8.20660</td>
+<td>-26.36863</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">271</td>
+<td>35.9</td>
+<td>16.6</td>
+<td>190.0</td>
+<td>3050.0</td>
+<td>8.47781</td>
+<td>-26.07821</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">272</td>
+<td>39.5</td>
+<td>17.8</td>
+<td>188.0</td>
+<td>3300.0</td>
+<td>9.66523</td>
+<td>-25.06020</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">273</td>
+<td>36.7</td>
+<td>19.3</td>
+<td>193.0</td>
+<td>3450.0</td>
+<td>8.76651</td>
+<td>-25.32426</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">274</td>
+<td>42.4</td>
+<td>17.3</td>
+<td>181.0</td>
+<td>3600.0</td>
+<td>9.35138</td>
+<td>-24.68790</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+<p>256 rows × 14 columns</p>
+</div>
+</div>
+</div>
+<div id="cell-12" class="cell" data-execution_count="110">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-import necessary libraries after execution state reset</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> combinations</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>qualitative_features <span class="op">=</span> [<span class="st">"Island_Biscoe"</span>, <span class="st">"Island_Dream"</span>, <span class="st">"Island_Torgersen"</span>, <span class="st">"Clutch Completion_No"</span>, <span class="st">"Clutch Completion_Yes"</span>, <span class="st">"Sex_FEMALE"</span>, <span class="st">"Sex_MALE"</span>]</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>quantitative_features <span class="op">=</span> [<span class="st">"Culmen Length (mm)"</span>, <span class="st">"Culmen Depth (mm)"</span>, <span class="st">"Flipper Length (mm)"</span>, <span class="st">"Body Mass (g)"</span>]</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize variables</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>best_features <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>best_score <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Try combinations of 1 qualitative + 2 quantitative features</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> qual <span class="kw">in</span> qualitative_features:</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> quant_combo <span class="kw">in</span> combinations(quantitative_features, <span class="dv">2</span>):</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        selected_features <span class="op">=</span> [qual] <span class="op">+</span> <span class="bu">list</span>(quant_combo)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Train a Random Forest (instead of Decision Tree) with optimized hyperparameters</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        RF <span class="op">=</span> RandomForestClassifier(random_state<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>        scores <span class="op">=</span> cross_val_score(RF, X_train[selected_features], y_train, cv<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Compute mean accuracy</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>        mean_score <span class="op">=</span> np.mean(scores)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Track the best feature combination</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> mean_score <span class="op">&gt;</span> best_score:</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>            best_score <span class="op">=</span> mean_score</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>            best_features <span class="op">=</span> selected_features</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the best feature set and corresponding accuracy</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>best_features, best_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="110">
+<pre><code>(['Sex_MALE', 'Culmen Length (mm)', 'Culmen Depth (mm)'],
+ np.float64(0.9844645550527904))</code></pre>
+</div>
+</div>
+<div id="cell-13" class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>test_url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/PhilChodrow/ml-notes/main/data/palmer-penguins/test.csv"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> pd.read_csv(test_url)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>X_test, y_test <span class="op">=</span> prepare_data(test)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [<span class="st">'Culmen Length (mm)'</span>, <span class="st">'Flipper Length (mm)'</span>,<span class="st">'Sex_MALE'</span>]</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>RF <span class="op">=</span> RandomForestClassifier(random_state<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>RF.fit(X_test[cols], y_test)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>RF.score(X_test[cols], y_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="120">
+<pre><code>1.0</code></pre>
+</div>
+</div>
+<div id="cell-14" class="cell" data-execution_count="121">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>X_train</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="121">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Culmen Length (mm)</th>
+<th data-quarto-table-cell-role="th">Culmen Depth (mm)</th>
+<th data-quarto-table-cell-role="th">Flipper Length (mm)</th>
+<th data-quarto-table-cell-role="th">Body Mass (g)</th>
+<th data-quarto-table-cell-role="th">Delta 15 N (o/oo)</th>
+<th data-quarto-table-cell-role="th">Delta 13 C (o/oo)</th>
+<th data-quarto-table-cell-role="th">Island_Biscoe</th>
+<th data-quarto-table-cell-role="th">Island_Dream</th>
+<th data-quarto-table-cell-role="th">Island_Torgersen</th>
+<th data-quarto-table-cell-role="th">Stage_Adult, 1 Egg Stage</th>
+<th data-quarto-table-cell-role="th">Clutch Completion_No</th>
+<th data-quarto-table-cell-role="th">Clutch Completion_Yes</th>
+<th data-quarto-table-cell-role="th">Sex_FEMALE</th>
+<th data-quarto-table-cell-role="th">Sex_MALE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>40.9</td>
+<td>16.6</td>
+<td>187.0</td>
+<td>3200.0</td>
+<td>9.08458</td>
+<td>-24.54903</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>49.0</td>
+<td>19.5</td>
+<td>210.0</td>
+<td>3950.0</td>
+<td>9.53262</td>
+<td>-24.66867</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>50.0</td>
+<td>15.2</td>
+<td>218.0</td>
+<td>5700.0</td>
+<td>8.25540</td>
+<td>-25.40075</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>45.8</td>
+<td>14.6</td>
+<td>210.0</td>
+<td>4200.0</td>
+<td>7.79958</td>
+<td>-25.62618</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>51.0</td>
+<td>18.8</td>
+<td>203.0</td>
+<td>4100.0</td>
+<td>9.23196</td>
+<td>-24.17282</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">270</td>
+<td>51.1</td>
+<td>16.5</td>
+<td>225.0</td>
+<td>5250.0</td>
+<td>8.20660</td>
+<td>-26.36863</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">271</td>
+<td>35.9</td>
+<td>16.6</td>
+<td>190.0</td>
+<td>3050.0</td>
+<td>8.47781</td>
+<td>-26.07821</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">272</td>
+<td>39.5</td>
+<td>17.8</td>
+<td>188.0</td>
+<td>3300.0</td>
+<td>9.66523</td>
+<td>-25.06020</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">273</td>
+<td>36.7</td>
+<td>19.3</td>
+<td>193.0</td>
+<td>3450.0</td>
+<td>8.76651</td>
+<td>-25.32426</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">274</td>
+<td>42.4</td>
+<td>17.3</td>
+<td>181.0</td>
+<td>3600.0</td>
+<td>9.35138</td>
+<td>-24.68790</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>True</td>
+<td>True</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+<p>256 rows × 14 columns</p>
+</div>
+</div>
+</div>
+<p>Now regions…</p>
+<div id="cell-16" class="cell" data-execution_count="131">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Patch</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_regions(model, X, y):</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    x0 <span class="op">=</span> X[X.columns[<span class="dv">0</span>]]</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    x1 <span class="op">=</span> X[X.columns[<span class="dv">1</span>]]</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    qual_features <span class="op">=</span> X.columns[<span class="dv">2</span>:]</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="bu">len</span>(qual_features), figsize <span class="op">=</span> (<span class="dv">7</span>, <span class="dv">3</span>))</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create a grid</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    grid_x <span class="op">=</span> np.linspace(x0.<span class="bu">min</span>(),x0.<span class="bu">max</span>(),<span class="dv">501</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    grid_y <span class="op">=</span> np.linspace(x1.<span class="bu">min</span>(),x1.<span class="bu">max</span>(),<span class="dv">501</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    xx, yy <span class="op">=</span> np.meshgrid(grid_x, grid_y)</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    XX <span class="op">=</span> xx.ravel()</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    YY <span class="op">=</span> yy.ravel()</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(qual_features)):</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>      XY <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>          X.columns[<span class="dv">0</span>] : XX,</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>          X.columns[<span class="dv">1</span>] : YY</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> j <span class="kw">in</span> qual_features:</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>        XY[j] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>      XY[qual_features[i]] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>      p <span class="op">=</span> model.predict(XY)</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>      p <span class="op">=</span> p.reshape(xx.shape)</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>      <span class="co"># use contour plot to visualize the predictions</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>      axarr[i].contourf(xx, yy, p, cmap <span class="op">=</span> <span class="st">"jet"</span>, alpha <span class="op">=</span> <span class="fl">0.2</span>, vmin <span class="op">=</span> <span class="dv">0</span>, vmax <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>      ix <span class="op">=</span> X[qual_features[i]] <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>      <span class="co"># plot the data</span></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>      axarr[i].scatter(x0[ix], x1[ix], c <span class="op">=</span> y[ix], cmap <span class="op">=</span> <span class="st">"jet"</span>, vmin <span class="op">=</span> <span class="dv">0</span>, vmax <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>      axarr[i].<span class="bu">set</span>(xlabel <span class="op">=</span> X.columns[<span class="dv">0</span>], </span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>            ylabel  <span class="op">=</span> X.columns[<span class="dv">1</span>], </span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>            title <span class="op">=</span> qual_features[i])</span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>      patches <span class="op">=</span> []</span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> color, spec <span class="kw">in</span> <span class="bu">zip</span>([<span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>], [<span class="st">"Adelie"</span>, <span class="st">"Chinstrap"</span>, <span class="st">"Gentoo"</span>]):</span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>        patches.append(Patch(color <span class="op">=</span> color, label <span class="op">=</span> spec))</span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>      plt.legend(title <span class="op">=</span> <span class="st">"Species"</span>, handles <span class="op">=</span> patches, loc <span class="op">=</span> <span class="st">"best"</span>)</span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>      plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-18" class="cell" data-execution_count="133">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [<span class="st">'Culmen Length (mm)'</span>, <span class="st">'Flipper Length (mm)'</span>,<span class="st">'Sex_MALE'</span>, <span class="st">"Island_Dream"</span>]</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>RF <span class="op">=</span> RandomForestClassifier()</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>RF.fit(X_train[cols], y_train)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>plot_regions(RF, X_train[cols], y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>JACKSON HANSONThis is an example of the blog posts that you’ll submit as your primary form of learning demonstration in CSCI 0451. I created this post by modifying the file <code>posts/example-blog-post/index.ipynb</code> in VSCode. You can also use JupyterLab for this editing if you prefer. Finally, it is possible to write blog posts without using notebooks by writing <code>.qmd</code> files, as illustrated <a href="https://quarto.org/docs/get-started/hello/vscode.html">here</a>.</p>
 <section id="frontmatter" class="level1">
 <h1>Frontmatter</h1>
 <p>Your notebook needs to contain some metadata: things like the title, author, date, etc. You specify this in a <code>raw</code> cell at the very beginning of the notebook. In this notebook, the contents of this cell is:</p>
@@ -558,35 +1125,68 @@ format: html
 <section id="running-python-code" class="level1">
 <h1>Running Python Code</h1>
 <p>To run Python code, place your code in a Python code block inside your notebook. You can run the code block inside VSCode (or JupyterLab) using the keyboard shortcut <code>ctrl + Enter</code>. You’ll see the result of your computation below the code, including the value of the most recent statement.</p>
-<div id="cell-12" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">"CSCI"</span> <span class="op">+</span> <span class="st">" 0451"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
+<div id="cell-21" class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="78">
 <pre><code>'CSCI 0451'</code></pre>
 </div>
 </div>
+<div id="cell-22" class="cell" data-execution_count="79">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>NUM_CASES  <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>PREVALENCE <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>NOISE      <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>cases  <span class="op">=</span> <span class="dv">1</span><span class="op">*</span>(np.random.rand(NUM_CASES) <span class="op">&lt;</span> PREVALENCE)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> np.exp(cases <span class="op">+</span> NOISE<span class="op">*</span>(np.random.rand(NUM_CASES))) <span class="op">/</span> np.exp(NOISE<span class="op">+</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-24" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_total_cost(t, k<span class="op">=</span><span class="dv">10</span>):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    predicted_positive <span class="op">=</span> scores <span class="op">&gt;</span> t</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    false_positives <span class="op">=</span> np.<span class="bu">sum</span>((predicted_positive <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (cases <span class="op">==</span> <span class="dv">0</span>))  <span class="co"># Scenario (a)</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    false_negatives <span class="op">=</span> np.<span class="bu">sum</span>((predicted_positive <span class="op">==</span> <span class="dv">0</span>) <span class="op">&amp;</span> (cases <span class="op">==</span> <span class="dv">1</span>))  <span class="co"># Scenario (b)</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> false_positives <span class="op">*</span> <span class="dv">1</span> <span class="op">+</span> false_negatives <span class="op">*</span> k</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Search for optimal t using a simple for-loop</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>t_values <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">100</span>)  <span class="co"># Explore 100 possible thresholds</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>best_t <span class="op">=</span> t_values[<span class="dv">0</span>]  <span class="co"># Start with the first threshold</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> t_values:</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> compute_total_cost(t, k) <span class="op">&lt;</span> compute_total_cost(best_t, k):</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        best_t <span class="op">=</span> t</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the optimal threshold</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>best_t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="41">
+<pre><code>np.float64(0.13131313131313133)</code></pre>
+</div>
+</div>
 <p>We’ll have lots of opportunities to make data visualizations in this course. These also display inside the notebook, and get converted into your blog post:</p>
-<div id="cell-14" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span><span class="op">*</span>np.pi, <span class="dv">1001</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.sin(x)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.plot(x, y)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>xlab <span class="op">=</span> plt.xlabel(<span class="st">"x"</span>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>ylab <span class="op">=</span> plt.ylabel(<span class="st">"y"</span>)</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>title <span class="op">=</span> plt.gca().<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"My Fancy Plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-27" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span><span class="op">*</span>np.pi, <span class="dv">1001</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.sin(x)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.plot(x, y)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>xlab <span class="op">=</span> plt.xlabel(<span class="st">"x"</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>ylab <span class="op">=</span> plt.ylabel(<span class="st">"y"</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>title <span class="op">=</span> plt.gca().<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"My Fancy Plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Another thing we’ll often do is implement an algorithm in a source file (i.e.&nbsp;a <code>.py</code> file) and then <em>use</em> it in a notebook. To do this, just place the <code>.py</code> file in the same directory as the notebook. For example, the file <code>source.py</code> in the same directory contains a custom function (which prints a message). I can use like this:</p>
-<div id="cell-16" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> source </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>source.my_custom_function()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-29" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> source </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>source.my_custom_function()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>I implemented this function in the file source.py</code></pre>
 </div>
