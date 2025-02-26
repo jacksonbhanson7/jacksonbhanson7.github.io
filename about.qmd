@@ -16,4 +16,4 @@ about:
 
 ---
 
-About this blog
+Portfolio for Jackson Hanson's projects in Machine Learning
