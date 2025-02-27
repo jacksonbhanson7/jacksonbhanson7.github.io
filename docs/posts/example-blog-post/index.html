@@ -219,13 +219,13 @@ background-size: cover;
 <section id="explore" class="level1">
 <h1>Explore</h1>
 <p>Before we start exploring the data, we need to load in the Palmer’s Penguins Dataset and take a look at the data we are given.</p>
-<div id="cell-4" class="cell" data-execution_count="9">
+<div id="cell-4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>train_url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/PhilChodrow/ml-notes/main/data/palmer-penguins/train.csv"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> pd.read_csv(train_url)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 
 
@@ -360,7 +360,7 @@ background-size: cover;
 </div>
 </div>
 <p>Now, we need to clean this data. First, we can see that there are some missing values. In this class, we haven’t learned how to impude the missing values yet, so I will just get rid of the rows that have N/A values. Then, I will use the provided code to “one-hot ‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍encode” the categorical features. These categorical columns should now be True/False rather than Yes/No.</p>
-<div id="cell-6" class="cell" data-execution_count="11">
+<div id="cell-6" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>le <span class="op">=</span> LabelEncoder()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>le.fit(train[<span class="st">"Species"</span>])</span>
@@ -376,7 +376,7 @@ background-size: cover;
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> prepare_data(train)</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>X_train.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
 
@@ -493,7 +493,7 @@ background-size: cover;
 </div>
 </div>
 <p>Now, I am going to merge the our target column with our features into a new dataset so that I can create visualizations easier.</p>
-<div id="cell-8" class="cell" data-execution_count="12">
+<div id="cell-8" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -517,7 +517,7 @@ background-size: cover;
 </div>
 </div>
 <p>This scatterplot shows the relationship between Flipper Length (mm) and Body Mass (g) by the three penguin species: Adelie, Chinstrap, and Gentoo. My first takeaway from this plot is that Gentoo penguins (represented by squares) have significantly higher higher body mass and longer flipper lengths than the other two species. Additionally, there is notable overlap between Adelie and Chinstrap penguins (represented by circles and X’s) in the middle of the graph. For a classification problem, this is a little alarming for me because this overlap suggests that Flipper Length and Body Mass alone won’t be able to reliably distinguish between Adelie and Chinstrap species. I may need to look for a different quantatative relationship to get to 100% accuracy.</p>
-<div id="cell-10" class="cell" data-execution_count="13">
+<div id="cell-10" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># map to have species name on x-axis rather than 0,1,2</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">map</span> <span class="op">=</span> {<span class="dv">0</span>: <span class="st">"Adelie"</span>, <span class="dv">1</span>: <span class="st">"Chinstrap"</span>, <span class="dv">2</span>: <span class="st">"Gentoo"</span>}</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -537,7 +537,7 @@ background-size: cover;
 </div>
 </div>
 <p>This boxplot illustrates the distribution of culmen length (mm) across the three penguin species. One observation is that Adelie penguins have the shortest culmen length by far. They have a median significantly lower than both Chinstrap and Gentoo penguins. Chinstrap penguins have the longest culmen length on average, with a higher IQR. Gentoo penguins tend to fall between the two but exhibit a slightly more compact distribution. This visualization reinforces the idea that culmen length could be a useful feature for distinguishing Adelie penguins from the other two species, but there may be some overlap between Chinstrap and Gentoo, so I’ll have to address this when I am searching for my 3 features.</p>
-<div id="cell-12" class="cell" data-execution_count="14">
+<div id="cell-12" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new 'Sex' column based on one-hot encoding to make aggregating table easier</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"Sex"</span>] <span class="op">=</span> df[<span class="st">"Sex_MALE"</span>].<span class="bu">map</span>({<span class="va">True</span>: <span class="st">"Male"</span>, <span class="va">False</span>: <span class="st">"Female"</span>})</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -550,7 +550,7 @@ background-size: cover;
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>summary_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
 
@@ -670,7 +670,7 @@ background-size: cover;
 <section id="model" class="level1">
 <h1>Model</h1>
 <p>Now that I’ve done a little exploring of the data, it is time to determine which features will be predict the penguins in the “test” dataset. At a high level, I will iterate through every combination of 1 qualitative variable and 2 quantitative variables and use cross validation to determine which combination performs best within the training data.</p>
-<div id="cell-15" class="cell" data-execution_count="15">
+<div id="cell-15" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> combinations</span>
@@ -705,7 +705,7 @@ background-size: cover;
 <span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Output the best feature set and corresponding accuracy</span></span>
 <span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>best_features, best_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>(['Sex_MALE', 'Culmen Length (mm)', 'Culmen Depth (mm)'],
  np.float64(0.9844645550527904))</code></pre>
 </div>
@@ -714,7 +714,7 @@ background-size: cover;
 </section>
 <section id="testing" class="level1">
 <h1>Testing</h1>
-<div id="cell-18" class="cell" data-execution_count="16">
+<div id="cell-18" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>test_url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/PhilChodrow/ml-notes/main/data/palmer-penguins/test.csv"</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> pd.read_csv(test_url)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -725,12 +725,12 @@ background-size: cover;
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>RF.fit(X_train[cols], y_train)</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>test_score <span class="op">=</span> RF.score(X_test[cols], y_test)</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>test_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>0.9852941176470589</code></pre>
 </div>
 </div>
 <p>Here, I fit a random forest using the training data and evaluation it on the unseen test data. I was able to get ~99% accuracy. Now, let’s take a look at the decision boundaries.</p>
-<div id="cell-20" class="cell" data-execution_count="18">
+<div id="cell-20" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Patch</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -785,7 +785,7 @@ background-size: cover;
 <span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>      </span>
 <span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>      plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="21">
+<div id="cell-21" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [<span class="st">'Culmen Length (mm)'</span>, <span class="st">'Culmen Depth (mm)'</span>,<span class="st">'Sex_MALE'</span>, <span class="st">"Sex_FEMALE"</span>]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>RF.fit(X_train[cols], y_train)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -800,7 +800,7 @@ background-size: cover;
 </div>
 <p>I used the plot_regions() function that we were given to show how the training data looks with a Random Forest Model and the feaures Culmen Length, Culmen Depth, and Sex. The boundaries for a Random Forest are a little funky but we can see how effective this model and these features are for classifying the penguins. The blue (Gentoo), red (Adelie), and green (Chinstrap) regions show how the model segments the graph. I notice that Gentoo are in the upper left showing that culmen depth might be the primary classfying in distinguishing. For Chinstrap and Adelie there is slightly more overlap. Some Chinstrap points appear in the red region. This suggests that while culmen depth helps differentiate Gentoo penguins, it may not be as reliable in distinguishing Adelie and Chinstrap.</p>
 <p>The decision boundaries for males and females have the same general shape, but are different. This indicates that sex influences the classification. The boundaries for Adelie and Chinstrap penguins appear more distinct in females than in males, which may imply that culmen depth differences between these two species are more pronounced in female penguins. This reinforces why “Sex_MALE” was selected as an important feature—it helps refine the classification process and improves separation between species.</p>
-<div id="cell-23" class="cell" data-execution_count="29">
+<div id="cell-23" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plot_regions(RF, X_test[cols], y_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -811,7 +811,7 @@ background-size: cover;
 </div>
 </div>
 <p>I used the plot_regions() function that we were given to show how the decision boundaries on the testing data with my RF model using the feaures Culmen Length, Culmen Depth, and Sex. This model achieved 67/68 accuracy on the test data, meaning that every penguin was correctly except for 1. You can see the one error in my model on the test data where the Chinstrap penguin is in the Adelie section.</p>
-<div id="cell-25" class="cell" data-execution_count="32">
+<div id="cell-25" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [<span class="st">'Culmen Length (mm)'</span>, <span class="st">'Culmen Depth (mm)'</span>,<span class="st">'Sex_MALE'</span>]</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>RF <span class="op">=</span> RandomForestClassifier(random_state<span class="op">=</span><span class="dv">7</span>)</span>
@@ -820,7 +820,7 @@ background-size: cover;
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>y_test_pred <span class="op">=</span> RF.predict(X_test[cols])</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> confusion_matrix(y_test, y_test_pred)</span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>C</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="32">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>array([[31,  0,  0],
        [ 0, 10,  1],
        [ 0,  0, 26]])</code></pre>
