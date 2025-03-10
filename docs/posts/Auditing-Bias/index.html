@@ -1412,7 +1412,7 @@ Name: y_hat, dtype: float64</code></pre>
 </div>
 </div>
 <p>Now we can generate a graph to view the Feasible (FNR, FPR) Combinations graph. This is inspired by Chouldechova’s figure 5 from the reading. It plots the observed false negative rates (FNR) and false positive rates (FPR) for each group alongside the theoretically feasible FNR-FPR tradeoff lines derived from Equation 2.6. The tradeoff lines are calculated using the prevalence-adjusted feasible FPR values, showing the relationship between error rates across groups. Each group is assigned a unique color, ensuring that the observed points match their respective feasible tradeoff lines. This visualization helps assess how well the observed FNR-FPR values align with the theoretically achievable fairness constraints.</p>
-<div id="cell-54" class="cell" data-execution_count="25">
+<div id="cell-54" class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
