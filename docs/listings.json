@@ -2,9 +2,10 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/new-new-test-post/index.html",
       "/posts/Auditing-Bias/index.html",
       "/posts/example-blog-post/index.html",
-      "/posts/new-new-test-post/index.html"
+      "/posts/new-new-test-post copy/index.html"
     ]
   }
 ]
