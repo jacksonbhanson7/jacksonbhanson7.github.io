@@ -358,15 +358,14 @@ background-size: cover;
 </div>
 <p>The graph reveals relationship between total medical expenditure and both risk score percentile and number of chronic illnesses. Again, it is obvious here that there is a disparity between black vs white. In the left panel, we see that as risk score percentiles increase, total medical expenditure rises. This makes sense, but when you take a look at black paitents, you see that Black patients consistently have lower expenditures than White patients at the same risk score percentile except for a few outliers. Similarly as the earleir plot, this suggests that the algorithm may underestimate the healthcare needs of Black patients or that they receive fewer medical interventions despite similar risk assessments.</p>
 <p>In the right panel, a similar trend emerges: as the number of chronic illnesses increases, total medical expenditures also increase, but again, Black patients tend to have lower expenditures than White patients with the same number of chronic conditions. The exact cause of this difference could be caused by a few things like differences in healthcare access, treatment patterns, or systemic biases in how medical resources are dispersed.</p>
-<div id="cell-7" class="cell" data-execution_count="82">
+<div id="cell-7" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>subset_df <span class="op">=</span> df[df[<span class="st">"gagne_sum_t"</span>] <span class="op">&lt;=</span> <span class="dv">5</span>]</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>(<span class="bu">len</span>(subset_df) <span class="op">/</span> <span class="bu">len</span>(df)) <span class="op">*</span> <span class="dv">100</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>(<span class="bu">len</span>(subset_df) <span class="op">/</span> <span class="bu">len</span>(df)) <span class="op">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="82">
 <pre><code>95.53952115447689</code></pre>
 </div>
 </div>
-<p>About 96% of patients have 5 or fewer chronic conditions.</p>
+<p>Our decision to focus on patients with 5 or fewer chronic conditions is supported by the fact that they make up approximately 96% of the dataset. This ensures that our analysis remains representative of the majority of patients while minimizing the influence of extreme cases with very high chronic condition counts. Additionally, as the number of chronic conditions increases, the number of patients in those categories becomes much smaller, leading to increased variability in medical costs and potential instability in the model.</p>
 <div id="cell-9" class="cell" data-execution_count="83">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove patients with $0 medical cost (log(0) is undefined)</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">"cost_t"</span>] <span class="op">&gt;</span> <span class="dv">0</span>]</span>
