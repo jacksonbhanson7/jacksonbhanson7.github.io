@@ -21,8 +21,6 @@ class Perceptron(LinearModel):
         indicator = (s * y_hat < 0).float()
         grads = -indicator[:, None] * y_hat[:, None] * X
         return grads.mean(dim=0)
-
-
 class PerceptronOptimizer():
     def __init__(self, model, alpha=1.0):  # default alpha = 1.0
         self.model = model
@@ -34,6 +32,3 @@ class PerceptronOptimizer():
         _ = self.model.loss(x_i, y_i)
         grad = self.model.grad(x_i, y_i)
         self.model.w = self.model.w - self.alpha * grad  # <- scaled by alpha!
-
-
-

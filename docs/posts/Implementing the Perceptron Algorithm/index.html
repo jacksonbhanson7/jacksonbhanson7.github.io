@@ -8,7 +8,7 @@
 
 <meta name="author" content="Jackson Hanson">
 <meta name="dcterms.date" content="2025-03-24">
-<meta name="description" content="Blog Post 2!">
+<meta name="description" content="Blog Post 4">
 
 <title>Blog Post 4 - Implementing the Perceptron Algorithm – Jackson Hanson CSCI 0451 Blog</title>
 <style>
@@ -171,7 +171,7 @@ background-size: cover;
       <h1 class="title">Blog Post 4 - Implementing the Perceptron Algorithm</h1>
                   <div>
         <div class="description">
-          Blog Post 2!
+          Blog Post 4
         </div>
       </div>
                 </div>
@@ -209,7 +209,8 @@ background-size: cover;
 
 
 
-<div id="cell-1" class="cell" data-execution_count="1">
+<p>Perceptron Code: https://github.com/jacksonbhanson7/jacksonbhanson7.github.io/blob/main/posts/Implementing%20the%20Perceptron%20Algorithm/perceptron.py</p>
+<div id="cell-2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>load_ext autoreload</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>autoreload <span class="dv">2</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> perceptron <span class="im">import</span> Perceptron, PerceptronOptimizer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -224,7 +225,7 @@ background-size: cover;
 <section id="part-b" class="level1">
 <h1>Part B</h1>
 <p>First, let’s generate and vizualize some linearly separable data in 2d. We can use the <code>perceptron_data</code> function to do so.</p>
-<div id="cell-6" class="cell" data-execution_count="49">
+<div id="cell-7" class="cell" data-execution_count="49">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
@@ -265,7 +266,7 @@ background-size: cover;
 </div>
 <p>Clearly this data is linearly separable, so Perceptron is guarenteed to find a separation line.</p>
 <p>Now, let’s vizualize the loss over the course of the algorithm. Because we know this data is linearly separable, we can run this dangerous while loop because we know it will converge.</p>
-<div id="cell-9" class="cell" data-execution_count="50">
+<div id="cell-10" class="cell" data-execution_count="50">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> perceptron <span class="im">import</span> Perceptron, PerceptronOptimizer</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">1234567</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># instantiate a model and an optimizer</span></span>
@@ -304,7 +305,7 @@ background-size: cover;
 </div>
 </div>
 <p>We can use Phil’s <code>draw_line</code> function to see some desision boundaries and how they progress as iterations increase.</p>
-<div id="cell-11" class="cell" data-execution_count="51">
+<div id="cell-12" class="cell" data-execution_count="51">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_line(w, x_min, x_max, ax, <span class="op">**</span>kwargs):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    w_ <span class="op">=</span> w.flatten()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> torch.linspace(x_min, x_max, <span class="dv">101</span>)</span>
@@ -312,7 +313,7 @@ background-size: cover;
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    l <span class="op">=</span> ax.plot(x, y, <span class="op">**</span>kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now let’s see how the desision boundaries evolve using the Phil’s code from lecture notes.</p>
-<div id="cell-13" class="cell" data-execution_count="52">
+<div id="cell-14" class="cell" data-execution_count="52">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">1234567</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize a perceptron </span></span>
@@ -370,7 +371,7 @@ background-size: cover;
 </div>
 </div>
 <p>Now, I’ve created a new data-generating function that will flip the class of a fraction of points. This will make the data messier so that we can experiment with some non linarly separable data.</p>
-<div id="cell-15" class="cell">
+<div id="cell-16" class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> perceptron_data_with_label_noise(n_points<span class="op">=</span><span class="dv">300</span>, noise<span class="op">=</span><span class="fl">0.2</span>, p_dims<span class="op">=</span><span class="dv">2</span>, flip_frac<span class="op">=</span><span class="fl">0.1</span>):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> (torch.arange(n_points) <span class="op">&gt;=</span> <span class="bu">int</span>(n_points <span class="op">/</span> <span class="dv">2</span>)).<span class="bu">int</span>()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> y[:, <span class="va">None</span>] <span class="op">+</span> torch.normal(<span class="fl">0.0</span>, noise, size<span class="op">=</span>(n_points, p_dims))</span>
@@ -383,7 +384,7 @@ background-size: cover;
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X, y</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="54">
+<div id="cell-17" class="cell" data-execution_count="54">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> perceptron_data_with_label_noise(<span class="dv">300</span>, noise<span class="op">=</span><span class="fl">0.2</span>, p_dims <span class="op">=</span> <span class="dv">2</span>, flip_frac<span class="op">=</span><span class="fl">0.1</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">4</span>, <span class="dv">4</span>))</span>
@@ -398,7 +399,7 @@ background-size: cover;
 </div>
 </div>
 <p>Notice how there is overlap between the blue and orange points in this data.</p>
-<div id="cell-18" class="cell" data-execution_count="55">
+<div id="cell-19" class="cell" data-execution_count="55">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> perceptron <span class="im">import</span> Perceptron, PerceptronOptimizer</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># instantiate a model and an optimizer</span></span>
@@ -448,7 +449,7 @@ background-size: cover;
 </div>
 </div>
 <p>This is the desision boundary after 1000 iterations. Because this data is not lienarly separable, loss never got to 0.</p>
-<div id="cell-20" class="cell" data-execution_count="56">
+<div id="cell-21" class="cell" data-execution_count="56">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plt.plot(score_vec)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Perceptron Iteration (Updates Only)"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Average Score"</span>)</span>
@@ -466,7 +467,7 @@ background-size: cover;
 </div>
 <p>This plot shows the evolution of the average score over time while training the Perceptron on non-linearly separable 2D data. The score fluctuates heavily across iterations, indicating that the algorithm struggles to consistently separate the data — which is expected when perfect separation isn’t possible. The lack of convergence or stabilization in the score confirms the non-linearly separable nature of the dataset.</p>
 <p>Now, let’s run the perceptron algorithm on data that isn’t 2d. I am setting <code>p_dims</code> to 5 instead of 2 in this experiment.</p>
-<div id="cell-23" class="cell" data-execution_count="58">
+<div id="cell-24" class="cell" data-execution_count="58">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate data with 5 features (plus bias)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> perceptron_data(n_points<span class="op">=</span><span class="dv">300</span>, noise<span class="op">=</span><span class="fl">0.3</span>, p_dims<span class="op">=</span><span class="dv">5</span>)  <span class="co"># no noise so it’s linearly separable</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -500,7 +501,7 @@ background-size: cover;
 <span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    opt.step(x_i, y_i)</span>
 <span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    iterations <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="59">
+<div id="cell-25" class="cell" data-execution_count="59">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.plot(score_vec)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Perceptron Iteration (Updates Only)"</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Average Score"</span>)</span>
@@ -521,7 +522,7 @@ background-size: cover;
 <section id="part-c" class="level1">
 <h1>Part C</h1>
 <p>This function run_minibatch_experiment encapsulates the training loop for the minibatch Perceptron algorithm. It takes in the data, batch size k, learning rate alpha, and maximum number of iterations. In each iteration, it selects a random minibatch of k examples, performs a Perceptron update, and tracks the loss. You’re using this function to compare how different batch sizes affect convergence and performance, including full-batch training on noisy (non-linearly separable) data.</p>
-<div id="cell-28" class="cell" data-execution_count="83">
+<div id="cell-29" class="cell" data-execution_count="83">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to run minibatch perceptron</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_minibatch_experiment(X, y, k, alpha<span class="op">=</span><span class="fl">1.0</span>, max_iter<span class="op">=</span><span class="dv">1000</span>):</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> Perceptron()</span>
@@ -547,7 +548,7 @@ background-size: cover;
 <span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> loss_vec</span>
 <span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-29" class="cell" data-execution_count="90">
+<div id="cell-30" class="cell" data-execution_count="90">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Experiment 1: k = 1 (standard perceptron)</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>X1, y1 <span class="op">=</span> perceptron_data()</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>loss_k1 <span class="op">=</span> run_minibatch_experiment(X1, y1, k<span class="op">=</span><span class="dv">1</span>)</span>
@@ -560,7 +561,7 @@ background-size: cover;
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>X3, y3 <span class="op">=</span> perceptron_data_with_label_noise(flip_frac<span class="op">=</span><span class="fl">.1</span>)</span>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>loss_kn <span class="op">=</span> run_minibatch_experiment(X3, y3, k<span class="op">=</span>X3.shape[<span class="dv">0</span>], alpha<span class="op">=</span><span class="fl">0.0001</span>, max_iter<span class="op">=</span><span class="dv">20000</span>)  <span class="co"># note: smaller alpha!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-30" class="cell" data-execution_count="91">
+<div id="cell-31" class="cell" data-execution_count="91">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">4</span>))</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(loss_k1)</span>
