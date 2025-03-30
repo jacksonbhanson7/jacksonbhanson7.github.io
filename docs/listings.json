@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Implementing the Perceptron Algorithm/index.html",
       "/posts/new-new-test-post/index.html",
       "/posts/Auditing-Bias/index.html",
       "/posts/example-blog-post/index.html",
