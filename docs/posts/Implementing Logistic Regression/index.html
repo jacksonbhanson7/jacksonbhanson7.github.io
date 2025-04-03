@@ -304,9 +304,8 @@ background-size: cover;
 </div>
 </div>
 </div>
-<p>In this section, we set up a Perceptron training loop with one update per iteration. The model and optimizer are initialized, and a loss vector is used to track how performance changes over time. In each iteration, a random data point is selected and passed to <code>opt.step()</code>, which performs the Perceptron update if the point is misclassified. The loss is calculated and stored at each step to visualize how quickly the model converges on linearly separable data.</p>
 <p>We can use Phil’s <code>draw_line</code> function to see some desision boundaries and how they progress as iterations increase.</p>
-<div id="cell-13" class="cell" data-execution_count="95">
+<div id="cell-12" class="cell" data-execution_count="95">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_line(w, x_min, x_max, ax, <span class="op">**</span>kwargs):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    w_ <span class="op">=</span> w.flatten()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> torch.linspace(x_min, x_max, <span class="dv">101</span>)</span>
@@ -314,7 +313,7 @@ background-size: cover;
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    l <span class="op">=</span> ax.plot(x, y, <span class="op">**</span>kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now let’s see how the desision boundaries evolve using the Phil’s code from lecture notes.</p>
-<div id="cell-15" class="cell" data-execution_count="96">
+<div id="cell-14" class="cell" data-execution_count="96">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">1234567</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize a perceptron </span></span>
@@ -371,9 +370,8 @@ background-size: cover;
 </div>
 </div>
 </div>
-<p>This chunk visualizes how the Perceptron decision boundary evolves over training. Again, in each iteration, a random data point is selected and the model updates only if the point is misclassified, allowing us to see the weight changes. The subplot grid shows the dataset, the previous decision boundary, and the new decision boundary after each update. This allows us to see how the Perceptron gradually converges on the correct boundary for linearly separable data.</p>
 <p>Now, I’ve created a new data-generating function that will flip the class of a fraction of points. This will make the data messier so that we can experiment with some non linarly separable data.</p>
-<div id="cell-18" class="cell" data-execution_count="97">
+<div id="cell-16" class="cell" data-execution_count="97">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> perceptron_data_with_label_noise(n_points<span class="op">=</span><span class="dv">300</span>, noise<span class="op">=</span><span class="fl">0.2</span>, p_dims<span class="op">=</span><span class="dv">2</span>, flip_frac<span class="op">=</span><span class="fl">0.1</span>):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> (torch.arange(n_points) <span class="op">&gt;=</span> <span class="bu">int</span>(n_points <span class="op">/</span> <span class="dv">2</span>)).<span class="bu">int</span>()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> y[:, <span class="va">None</span>] <span class="op">+</span> torch.normal(<span class="fl">0.0</span>, noise, size<span class="op">=</span>(n_points, p_dims))</span>
@@ -386,8 +384,7 @@ background-size: cover;
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X, y</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This function I created generates the same classification data, but flips the labels with a fraction of the points. I did this so that I could create data that I know is not linearly separable.</p>
-<div id="cell-20" class="cell" data-execution_count="98">
+<div id="cell-17" class="cell" data-execution_count="98">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> perceptron_data_with_label_noise(<span class="dv">300</span>, noise<span class="op">=</span><span class="fl">0.2</span>, p_dims <span class="op">=</span> <span class="dv">2</span>, flip_frac<span class="op">=</span><span class="fl">0.1</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">4</span>, <span class="dv">4</span>))</span>
@@ -402,7 +399,7 @@ background-size: cover;
 </div>
 </div>
 <p>Notice how there is overlap between the blue and orange points in this data.</p>
-<div id="cell-22" class="cell" data-execution_count="99">
+<div id="cell-19" class="cell" data-execution_count="99">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> perceptron <span class="im">import</span> Perceptron, PerceptronOptimizer</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># instantiate a model and an optimizer</span></span>
@@ -451,9 +448,8 @@ background-size: cover;
 </div>
 </div>
 </div>
-<p>Now we are doing the same training hoop on non-linearly separable data. The model is trained while both loss and classification score are recorded after each update. In addition to tracking loss, we are also keeping track of the scores for each iteration after the weights change. This allows us track model performance and observe how it stabilizes over time.</p>
 <p>This is the desision boundary after 1000 iterations. Because this data is not lienarly separable, loss never got to 0.</p>
-<div id="cell-25" class="cell" data-execution_count="100">
+<div id="cell-21" class="cell" data-execution_count="100">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plt.plot(score_vec)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Perceptron Iteration (Updates Only)"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Average Score"</span>)</span>
@@ -469,9 +465,9 @@ background-size: cover;
 </div>
 </div>
 </div>
-<p>We can see that the score fluctuates heavily across iterations because our data is very noisy (by design) indicating and that the algorithm struggles to consistently separate the data. The lack of convergence or stabilization in the score confirms the non-linearly separable nature of the dataset.</p>
+<p>This plot shows the evolution of the average score over time while training the Perceptron on non-linearly separable 2D data. The score fluctuates heavily across iterations, indicating that the algorithm struggles to consistently separate the data — which is expected when perfect separation isn’t possible. The lack of convergence or stabilization in the score confirms the non-linearly separable nature of the dataset.</p>
 <p>Now, let’s run the perceptron algorithm on data that isn’t 2d. I am setting <code>p_dims</code> to 5 instead of 2 in this experiment.</p>
-<div id="cell-28" class="cell" data-execution_count="103">
+<div id="cell-24" class="cell" data-execution_count="103">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate data with 5 features (plus bias)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> perceptron_data(n_points<span class="op">=</span><span class="dv">300</span>, noise<span class="op">=</span><span class="fl">0.3</span>, p_dims<span class="op">=</span><span class="dv">5</span>)  <span class="co"># no noise so it’s linearly separable</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -505,8 +501,7 @@ background-size: cover;
 <span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    opt.step(x_i, y_i)</span>
 <span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    iterations <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In this training loop, the Perceptron is applied to a clean 5-dimensional dataset with no label flipping. The model’s average classification score is tracked over time using a simple loop. Because the data can be perfectly separated, the score stabilizes and remains consistently high.</p>
-<div id="cell-30" class="cell" data-execution_count="104">
+<div id="cell-25" class="cell" data-execution_count="104">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.plot(score_vec)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Perceptron Iteration (Updates Only)"</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Average Score"</span>)</span>
@@ -526,8 +521,8 @@ background-size: cover;
 </section>
 <section id="part-c" class="level1">
 <h1>Part C</h1>
-<p>Now that we’ve tweaked <code>perceptron.py</code>, let’s do some minibatch experiment.</p>
-<div id="cell-34" class="cell" data-execution_count="105">
+<p>This function run_minibatch_experiment encapsulates the training loop for the minibatch Perceptron algorithm. It takes in the data, batch size k, learning rate alpha, and maximum number of iterations. In each iteration, it selects a random minibatch of k examples, performs a Perceptron update, and tracks the loss. You’re using this function to compare how different batch sizes affect convergence and performance, including full-batch training on noisy (non-linearly separable) data.</p>
+<div id="cell-29" class="cell" data-execution_count="105">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to run minibatch perceptron</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_minibatch_experiment(X, y, k, alpha<span class="op">=</span><span class="fl">1.0</span>, max_iter<span class="op">=</span><span class="dv">1000</span>):</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> Perceptron()</span>
@@ -553,7 +548,7 @@ background-size: cover;
 <span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> loss_vec</span>
 <span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-35" class="cell" data-execution_count="121">
+<div id="cell-30" class="cell" data-execution_count="121">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Experiment 1: k = 1 (standard perceptron)</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>X1, y1 <span class="op">=</span> perceptron_data()</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>loss_k1 <span class="op">=</span> run_minibatch_experiment(X1, y1, k<span class="op">=</span><span class="dv">1</span>)</span>
@@ -566,7 +561,7 @@ background-size: cover;
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>X3, y3 <span class="op">=</span> perceptron_data_with_label_noise(flip_frac<span class="op">=</span><span class="fl">.1</span>)</span>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>loss_kn <span class="op">=</span> run_minibatch_experiment(X3, y3, k<span class="op">=</span>X3.shape[<span class="dv">0</span>], alpha<span class="op">=</span><span class="fl">0.0001</span>, max_iter<span class="op">=</span><span class="dv">20000</span>)  <span class="co"># note: smaller alpha!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-36" class="cell" data-execution_count="122">
+<div id="cell-31" class="cell" data-execution_count="122">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">4</span>))</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(loss_k1)</span>
@@ -592,7 +587,7 @@ background-size: cover;
 </div>
 </div>
 </div>
-<p>This code defines and runs a generalized training function for minibatch Perceptron, which selects k random points per update instead of one. The function is used to compare three scenarios: standard Perceptron (k=1), a minibatch of size 10, and a full-batch update on noisy data. Each run records the loss over time to visualize how quickly and stably the model learns under different conditions. The plots show that increasing k improves convergence speed this data, and that full-batch updates can still reduce loss even on this dataset with a small enough learning rate.</p>
+<p>These three graphs show how the minibatch perceptron algorithm performs with different batch sizes under various conditions.When k = 1 The perceptron converges quickly and the loss drops to zero within a few hundred iterations. This looks similar to the perceptron I performed earlier without the mini-batch update. When k = 10, the loss converges even faster and more smoothly than the standard perceptron. Maybe the larger batch size provides more stable updates, helping the model find a desision boundary faster in the linearly separable case. When k = n and the data is not LS, (labels are switched), the perceptron still converges after many iterations, but only when using a very small learning rate (alpha = 0.0001). The slow convergence reflects the difficulty in minimizing classification error on noisy data, but the stability of full batch updates makes progress possible.</p>
 </section>
 <section id="part-d" class="level1">
 <h1>Part D</h1>
