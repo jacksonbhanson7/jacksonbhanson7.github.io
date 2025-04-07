@@ -1,46 +1,101 @@
 import torch
+
 class LinearModel:
     def __init__(self):
+        """
+        Initializes the model with no weights.
+        """
         self.w = None
+
     def score(self, X):
+        """
+        Computes the scores and if weights are not initialized, initialize them randomly
+
+        Args:
+            X (torch.Tensor): Input feature matrix of shape n_samples x n_features
+
+        Returns:
+            torch.Tensor: scores of shape n_samples,
+        """
         if self.w is None:
-            self.w = torch.rand((X.size(1),))
+            self.w = torch.rand((X.shape[1],))
         return X @ self.w
+
     def predict(self, X):
+        """
+        Generates yes/no predictions using scores
+
+        Args:
+            X (torch.Tensor): Input feature matrix of shape n_samples x n_features
+
+        Returns:
+            torch.Tensor: Predicted yes/no class labels (0 or 1)
+        """
         return (self.score(X) > 0).float()
-    
+
+
 class LogisticRegression(LinearModel):
     def loss(self, X, y):
+        """
+        Computes the binary cross-entropy loss for logistic regression.
+
+        Args:
+            X (torch.Tensor): Input features
+            y (torch.Tensor): Actual yes/no class labels
+
+        Returns:
+            torch.Tensor: loss value
+        """
         scores = self.score(X)
-        sigma = torch.sigmoid(scores)  # σ(s_i)
-        loss = -torch.mean(y * torch.log(sigma + 1e-9) + (1 - y) * torch.log(1 - sigma + 1e-9)) #add in tiny number so that we are never taking log(0)
-        return loss
-    
-    def grad(self, X, y):    
-        scores = self.score(X)                   
         sigma = torch.sigmoid(scores)
-        v = sigma - y
-        v_ = v[:, None]
-        gradient = torch.mean(X * v_, dim=0)
+        # Add tiny, tiny number to avoid to avoid log(0)
+        loss = -torch.mean(y * torch.log(sigma + 1e-9) + (1 - y) * torch.log(1 - sigma + 1e-9))
+        return loss
+
+    def grad(self, X, y):
+        """
+        Computes the gradient of the binary cross-entropy with calcualted weights.
+
+        Args:
+            X (torch.Tensor): Input features matrix
+            y (torch.Tensor): Actual yes/no class labels
+
+        Returns:
+            torch.Tensor: Gradient vector of shape n_features,
+        """
+        scores = self.score(X)
+        sigma = torch.sigmoid(scores)
+        gradient = torch.mean((sigma - y).unsqueeze(1) * X, dim=0)
         return gradient
+
 
 class GradientDescentOptimizer:
     def __init__(self, model):
+        """
+        Initialize optimizer for a given model.
+
+        Args:
+            model (LinearModel): The model whose parameters will be optimized
+        """
         self.model = model
-        self.prev_w = None  # This will hold w_{k-1}
+        self.prev_w = None  # To store previous weights for momentum
 
     def step(self, X, y, alpha, beta):
-        # Store current weights
+        """
+        Perform one step of gradient descent with optional momentum.
+
+        Args:
+            X (torch.Tensor): Training features
+            y (torch.Tensor): Training labels
+            alpha (float): Learning rate
+            beta (float): Momentum factor (0 = no momentum)
+        """
         current_w = self.model.w.clone()
-        _ = self.model.loss(X, y)
-        # Compute gradient of the loss at current weights
         grad = self.model.grad(X, y)
-        # If no previous weights, treat it like regular gradient descent
+
         if self.prev_w is None:
             self.prev_w = current_w
-        # Momentum term: (w_k - w_{k-1})
+
         momentum = beta * (current_w - self.prev_w)
-        # Gradient descent step with momentum
         self.model.w = current_w - alpha * grad + momentum
-        # Update prev_w for the next step
         self.prev_w = current_w
