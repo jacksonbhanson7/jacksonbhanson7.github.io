@@ -385,10 +385,9 @@ background-size: cover;
 </div>
 </div>
 </div>
-<p>COMENTARY!!</p>
 <p>In this experiment, we compare the behavior of logistic regression on the same data, but tweak the alpha and beta values. This allows us to add momentum to the model. These figures compare the behavior of logistic regression trained with/without momentum across a range of learning rates. Each subplot shows the binary cross-entropy loss over 1000 iterations for a different value of alpha, from 0.01 to 0.99. The smaller learning rates lead to slow but steady convergence, requiring many iterations to reduce the loss. In contrast, larger learning rates dramatically accelerate convergence, reaching near-zero loss within just a few updates. Additionally, when momentum is added, there is signifcantly quicker convergence to near 0 loss.</p>
 <p>Overfitting</p>
-<div id="cell-22" class="cell" data-execution_count="483">
+<div id="cell-21" class="cell" data-execution_count="483">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the train and test datasets</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> classification_data(n_points<span class="op">=</span><span class="dv">30</span>, noise<span class="op">=</span><span class="fl">0.7</span>, p_dims<span class="op">=</span><span class="dv">100</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>X_test, y_test <span class="op">=</span> classification_data(n_points<span class="op">=</span><span class="dv">30</span>, noise<span class="op">=</span><span class="fl">0.7</span>, p_dims<span class="op">=</span><span class="dv">100</span>)</span>
@@ -425,7 +424,7 @@ Test Accuracy: 0.87</code></pre>
 </div>
 <p>In this experiment, we take a look at what happens when we overfit data. We generate a high-dimensional dataset where the number of features (p_dim = 100) greatly exceeds the number of data points (n_points = 30). We generate two independent datasets using the same parameters: one for training and one for testing. A logistic regression model is trained on the training set using gradient descent with momentum (alpha = 1, beta = 0.99). The model continues to train until it achieves 100% training accuracy. After this loop breaks, we use this model to predict the other dataset (test). Notice that when we evaluate on the test data, accuracy drops to 87%. This gap between training and test performance illustrates overfitting. Here, the model that we trained has understoof the noise of the training data rather generalizing. This highlights the importance of evaluating models on unseen data, especially with high-dimensional data.</p>
 <p>Performance ‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍on ‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍empirical ‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍data</p>
-<div id="cell-25" class="cell" data-execution_count="486">
+<div id="cell-24" class="cell" data-execution_count="486">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ucimlrepo <span class="im">import</span> fetch_ucirepo </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fetch dataset </span></span>
@@ -499,7 +498,7 @@ Test Accuracy: 0.87</code></pre>
 </div>
 </div>
 <p>Here, we upload the famous iris dataset. The variable we are interested in predicting is not a yes/no column. It is a class of flower with three possible types of flower. There are three flowersL: Setosa, Virginica and Versicolor.</p>
-<div id="cell-27" class="cell" data-execution_count="487">
+<div id="cell-26" class="cell" data-execution_count="487">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to binary classification: 1 if Setosa, 0 otherwise</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>y_bin <span class="op">=</span> (y[<span class="st">'class'</span>] <span class="op">==</span> <span class="st">'Iris-setosa'</span>).astype(<span class="bu">int</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>y_bin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -519,7 +518,7 @@ Name: class, Length: 150, dtype: int64</code></pre>
 </div>
 </div>
 <p>To make this a binary prediction problem, we create a new column <code>y_bin</code> that is a 1 if the flower is Setosa, and 0 if it is not. So now we are trying to build a model that will successfully predict if a given flower is a Setosa or not.</p>
-<div id="cell-29" class="cell" data-execution_count="512">
+<div id="cell-28" class="cell" data-execution_count="512">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Hold out 20% of total data for testing</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>X_temp, X_test, y_temp, y_test <span class="op">=</span> train_test_split(X, y_bin, test_size<span class="op">=</span><span class="fl">0.2</span>)</span>
@@ -528,7 +527,7 @@ Name: class, Length: 150, dtype: int64</code></pre>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>X_train, X_val, y_train, y_val <span class="op">=</span> train_test_split(X_temp, y_temp, test_size<span class="op">=</span><span class="fl">0.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We utilize sci-kit-learn’s <code>train_test_split</code> function and a little fraction math to get a 60-20-20 breakdown for train-validation-testing data.</p>
-<div id="cell-31" class="cell" data-execution_count="513">
+<div id="cell-30" class="cell" data-execution_count="513">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert everything to torch tensors *before* calling train_model</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> torch.tensor(X_train.values, dtype<span class="op">=</span>torch.float32)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>X_val   <span class="op">=</span> torch.tensor(X_val.values, dtype<span class="op">=</span>torch.float32)</span>
@@ -539,7 +538,7 @@ Name: class, Length: 150, dtype: int64</code></pre>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>y_test  <span class="op">=</span> torch.tensor(y_test.values, dtype<span class="op">=</span>torch.float32)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here, we convert all our data to torch tensors so that it works well with the classes that we’ve built.</p>
-<div id="cell-33" class="cell" data-execution_count="514">
+<div id="cell-32" class="cell" data-execution_count="514">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_model(X, y, X_val, y_val, alpha, beta, max_iter<span class="op">=</span><span class="dv">50</span>):</span>
@@ -557,7 +556,7 @@ Name: class, Length: 150, dtype: int64</code></pre>
 <span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> train_losses, val_losses, model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>train_model</code> function performs trains a logistic regression model using gradient descent with a alpha, beta, and iterations parameters. It initializes the model weights, then repeatedly computes both the training loss and validation loss over time, storing them at each step. The optimizer updates the model weights using the specified hyperparameters. Finally, the function returns the sequence of training and validation losses along with the trained model, so that we can investigate it further after it is trained.</p>
-<div id="cell-35" class="cell" data-execution_count="515">
+<div id="cell-34" class="cell" data-execution_count="515">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Train with momentum</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>train_loss_m, val_loss_m, model_m <span class="op">=</span> train_model(X_train, y_train, X_val, y_val, alpha<span class="op">=</span><span class="fl">0.5</span>, beta<span class="op">=</span><span class="fl">0.8</span>)</span>
