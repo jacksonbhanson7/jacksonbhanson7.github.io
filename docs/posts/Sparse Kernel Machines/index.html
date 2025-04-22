@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jackson Hanson">
-<meta name="dcterms.date" content="2025-03-31">
-<meta name="description" content="Implement the Logistic Regression algorithm with and without momentum">
+<meta name="dcterms.date" content="2025-04-22">
+<meta name="description" content="Implement Sparse Kernel Regression and conduct experiments with different data">
 
 <title>Blog Post 6 - Sparse Kernel Machines – Jackson Hanson CSCI 0451 Blog</title>
 <style>
@@ -171,7 +171,7 @@ background-size: cover;
       <h1 class="title">Blog Post 6 - Sparse Kernel Machines</h1>
                   <div>
         <div class="description">
-          Implement the Logistic Regression algorithm with and without momentum
+          Implement Sparse Kernel Regression and conduct experiments with different data
         </div>
       </div>
                 </div>
@@ -190,7 +190,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">March 31, 2025</p>
+        <p class="date">April 22, 2025</p>
       </div>
     </div>
     
@@ -209,7 +209,7 @@ background-size: cover;
 
 
 
-<p>Logistic Regression Code: TO INPUT</p>
+<p>Sparse Kernel Regression Code: https://github.com/jacksonbhanson7/jacksonbhanson7.github.io/blob/main/posts/Sparse%20Kernel%20Machines/logistic2.py</p>
 <div id="cell-2" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>load_ext autoreload</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>autoreload <span class="dv">2</span></span>
@@ -462,12 +462,11 @@ background-size: cover;
 </div>
 </div>
 <p>On the training data, the model performed with 93% accuracy.</p>
-<p>COMMENTARY</p>
 </section>
 <section id="part-c" class="level1">
 <h1>Part C</h1>
 <p>In this experiement, we are aiming to demonstrate overfitting by changing the gamma values. Below, we generate two independent moon-like shapes using the <code>make_moons</code> function from earlier. Again, we convert the data to torch tensors.</p>
-<div id="cell-36" class="cell" data-execution_count="143">
+<div id="cell-35" class="cell" data-execution_count="143">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> make_moons(n_samples<span class="op">=</span><span class="dv">200</span>, noise<span class="op">=</span><span class="fl">0.5</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>X_test, y_test <span class="op">=</span> make_moons(n_samples<span class="op">=</span><span class="dv">200</span>, noise<span class="op">=</span><span class="fl">0.5</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -482,14 +481,14 @@ background-size: cover;
 </div>
 </div>
 <p>Here we are fitting two different models. One with a moderate gamma (1) and one with a high gamma (100).</p>
-<div id="cell-38" class="cell" data-execution_count="144">
+<div id="cell-37" class="cell" data-execution_count="144">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>model_good <span class="op">=</span> SparseKernelLogisticRegression(rbf_kernel, lam<span class="op">=</span><span class="fl">0.5</span>, gamma<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>model_overfit <span class="op">=</span> SparseKernelLogisticRegression(rbf_kernel, lam<span class="op">=</span><span class="fl">0.5</span>, gamma<span class="op">=</span><span class="dv">100</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>model_good.fit(X_train, y_train, m_epochs<span class="op">=</span><span class="dv">500000</span>, lr<span class="op">=</span><span class="fl">0.01</span>)</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>model_overfit.fit(X_train, y_train, m_epochs<span class="op">=</span><span class="dv">500000</span>, lr<span class="op">=</span><span class="fl">0.01</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-39" class="cell" data-execution_count="147">
+<div id="cell-38" class="cell" data-execution_count="147">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -533,14 +532,14 @@ background-size: cover;
 </div>
 </div>
 <p>The decision boundary on the left (γ = 1) captures the general structure of the data well without fitting to noise, while the boundary on the right (γ = 100) is highly irregular and overly complex. This demonstrates overfitting, where the model memorizes the training data at the expense of generalization.</p>
-<div id="cell-41" class="cell" data-execution_count="145">
+<div id="cell-40" class="cell" data-execution_count="145">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>train_scores_good <span class="op">=</span> model_good.score(X_train)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>test_scores_good <span class="op">=</span> model_good.score(X_test)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>train_scores_overfit <span class="op">=</span> model_overfit.score(X_train)</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>test_scores_overfit <span class="op">=</span> model_overfit.score(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-42" class="cell" data-execution_count="148">
+<div id="cell-41" class="cell" data-execution_count="148">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_curve, auc</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_roc(y_true, scores, label):</span>
