@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Advanced Optimization: Newton’s Method and Adam/index.html",
       "/posts/Sparse Kernel Machines/index.html",
       "/posts/Implementing Logistic Regression/index.html",
       "/posts/Implementing the Perceptron Algorithm/index.html",
