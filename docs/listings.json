@@ -2,6 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Final Project/index.html",
+      "/posts/Final Project/report.html",
       "/posts/Advanced Optimization: Newton’s Method and Adam/index.html",
       "/posts/Sparse Kernel Machines/index.html",
       "/posts/Implementing Logistic Regression/index.html",

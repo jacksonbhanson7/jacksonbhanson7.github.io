@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jackson Hanson and Evan Flaks">
+<meta name="dcterms.date" content="2025-05-18">
+<meta name="description" content="Midd ML Final Project">
+
+<title>CFB Machine Learning Final Project – Jackson Hanson CSCI 0451 Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-6de787833effe4777a6777a5e05fb578.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: white;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: white;
+background-image: url(../../img/landscape.png);
+background-size: cover;
+      }
+</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Jackson Hanson CSCI 0451 Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">Jackson Hanson</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">CFB Machine Learning Final Project</h1>
+                  <div>
+        <div class="description">
+          Midd ML Final Project
+        </div>
+      </div>
+                </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Jackson Hanson and Evan Flaks </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 18, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="abstract" class="level1">
+<h1>Abstract</h1>
+<p>This project aims to predict the final scores of Power 5 NCAA Division I college football games using only data available before each game, such as offensive/defensive efficiency, average points scored/allowed, and other team-level statistics. This dataset is from before college football’s conference realignment, so Power 5 is defined as Big 12, Big 10, SEC, ACC, and Pac 12. The approach involves training regression models on historical data from 2002 through January 2025. To evaluate model performance, we will compare predicted versus actual game scores using metrics like Root Mean Squared Error (RMSE) and Mean Absolute Error (MAE), focusing on how well the model forecasts real outcomes before games are played.</p>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Trying to predict college football games has always been something people care about—fans, analysts, and gamblers have all taken a shot. But with so many teams, player turnover, and the huge range in competition, it’s a tough problem. College football is messy, and that makes it a perfect testing ground for machine learning. In the past few years, ML models have gotten better at spotting patterns in noisy data, and we wanted to see what would happen if we brought that to college football.</p>
+<p>Our goal in this project is to build a machine learning model that predicts the point differential of a game—not just who wins, but by how much. This makes it a regression problem rather than a classification one. It’s a harder task, but more useful. If a model can estimate the score margin before the game kicks off, it can help coaches with strategy, analysts with coverage, and even recruiters and NIL decision-makers with how they evaluate teams. Analytics already play a massive role in college sports, and we’re starting to see them influence recruiting priorities, gameplanning, and how programs spend their money. Fans and media can use these kinds of predictions to understand matchups better. And yeah, it could also give sports bettors an edge—but there’s risk in that too. People can overtrust models that were never meant to be perfect.</p>
+<p>We looked at two studies that helped shape how we approached this. One was Luke Boll’s Capstone Report <span class="citation" data-cites="boll2023gridiron">(<a href="#ref-boll2023gridiron" role="doc-biblioref">Boll 2023</a>)</span>, which used a neural network to predict college football outcomes. He scraped data from TeamRankings and engineered over 1,700 features. One thing we liked about his approach was how he used football logic to drive preprocessing—for example, dropping early-season non-conference games and using Lasso regression for feature selection. That made the model more focused and realistic. We’re trying to do something similar: really think about what matters in a football game and build features that reflect that. Our plan is to customize both the inputs and the model itself so they make sense for how teams actually play today.</p>
+<p>The other paper that stood out was by Anyama and Igiri <span class="citation" data-cites="anyama2015application">(<a href="#ref-anyama2015application" role="doc-biblioref">Anyama and Igiri 2015</a>)</span>, who used a hybrid model combining linear regression and a neural network to predict NFL outcomes. They used RapidMiner to build the pipeline and reported over 90% accuracy. Their model leaned heavily on player-level data, which works in the NFL because that info is easier to get. We don’t have that luxury in college football, so we’re going to focus on team-level data instead. But what we are borrowing is the hybrid idea—we’re planning to use both linear models and neural networks, and compare them using the same error metrics. That way we can see which approach generalizes better.</p>
+</section>
+<section id="values-statement" class="level1">
+<h1>Values Statement</h1>
+<p>The people who would use our project are mostly analysts, coaches, or fans who want a smarter way to talk about college football. Our model helps predict how much one team might beat another by—before the game even starts—so it gives a more detailed picture than just guessing the winner. But there are other people who might be affected too. Sports bettors could easily take something like this and try to build it into their strategy. Reporters might use it to shape narratives around teams or players, and that’s not always neutral.</p>
+<p>The ones who benefit most are the people trying to make sense of the game. Coaches could use this to guide decisions. Analysts get a new layer of data. Even fans get something more objective to add to the conversation. But there’s a flip side too—someone betting based on this could lose money, or a model like ours could be overhyped and treated as more accurate than it really is. That kind of overconfidence is dangerous, especially with something as unpredictable as college football.</p>
+<p>We were interested in this because we’ve lived the sport. We know how much talk there is during the week—rankings, spreads, predictions—and we wanted to build something that cuts through that noise a little. This felt like a chance to combine the world we know from playing with the technical tools we’ve picked up in class. It also gave us a reason to go deep on something we’ve always cared about, but from a new angle.</p>
+<p>Does this make the world more just or joyful? Probably not in a dramatic way. But if it makes the sport a little more transparent, or helps someone understand the game in a smarter way, or even just makes predictions a bit more grounded in real data—that’s still a step in the right direction. We’re not trying to build the next Vegas. We just wanted to see what was possible with the data that’s already out there.</p>
+</section>
+<section id="materials-and-methods" class="level1">
+<h1>Materials and Methods</h1>
+<p>We used a dataset from Kaggle titled [<a href="https://www.kaggle.com/datasets/cviaxmiwnptr/college-football-team-stats-2002-to-january-2024/data">“College Football Team Stats: 2002 to January 2024”</a>], originally uploaded by user cviaxmiwnptr. The dataset includes team-level statistics for NCAA Division I college football games across more than 20 seasons. It doesn’t explicitly say, but our guess is that it was likely scraped from either ESPN or NCAA’s official site. The Kaggle page doesn’t specify a clear pipeline or methodology for how the data was gathered, which is a limitation. We checked a few random games against NCAA’s official website and these rows matched reality.</p>
+<p>Each row in the dataset represents a single college football game, and the columns capture a wide range of game-level statistics—things like rushing yards, passing efficiency, turnovers, penalties, time of possession, and more. The data is separated into home and away team stats, and includes fields for final scores, team names, dates, and whether the game was played at a neutral site. For our project, we filtered this dataset to include only games played by Power 5 conference teams (SEC, Big Ten, ACC, Pac-12, Big 12) after 2002, and we focused only on data that would have been available before each game.</p>
+<p>There are some limitations here. First, this dataset doesn’t include player-level stats or injury reports, which can have a major impact on game outcomes. It also doesn’t capture off-the-field context—like weather, coaching changes, or travel distance—which could affect performance but aren’t represented in the numbers. There’s also some inconsistency in missing values and conference naming (for example, due to realignment over the years), which we had to clean up during preprocessing. And finally, because this is scraped historical data, there’s always a chance of errors or incomplete entries, especially in older seasons.</p>
+<p>Despite those gaps, the dataset is solid for what we were trying to do. It’s large, covers over 20 years of games, and includes many of the core stats teams actually care about when preparing for a matchup. That said, it doesn’t represent the full story behind every game—and our model can only be as good as the data it learns from.</p>
+<p>We started this project by building a simple linear regression model as our baseline. At first, the results looked great—our RMSE was low and the residuals were clean. But the model was doing too well, and we quickly realized why: we were using in-game stats to predict the final score. If a team threw for 500 yards in a game, the model would just learn that and predict a high score—not exactly helpful if you’re trying to make a prediction before the game starts. So we went back and reworked the feature set.</p>
+<p>We changed our inputs to only include team stats available before each game, using averages up to that point in the season. That made our setup more realistic. From there, we refined it further by calculating 4-week rolling averages for every team stat. This helped capture recent team performance and was way more aligned with how coaches and analysts actually scout games. Each one of these changes chipped away at our error and improved the model’s ability to generalize.</p>
+<p>Once we felt good about the features, we moved on to a neural network built in PyTorch. We started with a basic feedforward structure and slowly optimized it. We tried different numbers of hidden layers, units per layer, dropout rates, and learning rates. We trained using the Adam optimizer and used scaled features (StandardScaler) across the board. During this phase, we used the 2023 season for cross-validation, holding it out to tune hyperparameters before running final tests on the 2024 data. Each change we made—whether it was in architecture or training settings—brought steady improvements.</p>
+<p>We also experimented with custom loss functions to better reflect what matters in a football game. One function added weight to errors within a field goal margin, since those are the types of predictions that really matter in close games. Another penalized the model more when it underpredicted blowouts, which we noticed was a pattern early on in our residual plots.</p>
+<p>One of our final tweaks was surprisingly simple: we realized we hadn’t included points per game as a feature. We had assumed it was already in the dataset, but it wasn’t. Once we calculated and added it in, our error dropped again. That ended up being one of the most predictive features in the whole model—proof that sometimes the most obvious stats can still carry a lot of value.</p>
+<p>We trained everything locally on CPUs. For evaluation, we used Root Mean Squared Error (RMSE) and Mean Absolute Error (MAE). Our test set was made up of games from the 2024 season, while all games prior to that were used for training. This setup ensured that the model was always predicting the future, not just fitting the past. We also used plots like residuals vs.&nbsp;predicted and actual vs.&nbsp;predicted to better understand where the model was performing well (or not).</p>
+<p>We didn’t run a formal audit for bias, but we did notice some patterns. The model occasionally struggled with games that ended in blowouts or major upsets, and it tended to overpredict when the teams were evenly matched. We also focused only on Power 5 games, which improved consistency but made the model less applicable to smaller schools. That tradeoff was intentional—we prioritized data quality and relevance over full generalization.</p>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<p>We experimented with four different modeling strategies for predicting college football scores: a baseline linear regression model, a regression model with rolling averages, a parameter-tuned neural network, and a random forest. We report each model’s performance across home and away scores using Mean Squared Error (MSE), Mean Absolute Error (MAE), and R².</p>
+<p>Our baseline linear regression, which naively used current-game stats like total passing yards, initially gave suspiciously strong results—because it was predicting on data from within the game. Once we corrected that to only use stats available before kickoff, performance naturally dropped, with Home MSE at 166.80 and Away MSE at 158.72. Still, this served as a good starting point.</p>
+<p>The next iteration introduced rolling averages (a 4-week trailing mean), which made the features more realistic and reflective of a team’s form. This cut down the error noticeably, especially for away teams, where MSE dropped to 138.24 and MAE to 9.60. It was a reminder that in college football, recent performance trends matter more than raw season averages.</p>
+<p>We then implemented a custom neural network. We tuned dropout, learning rate, hidden layer size, and weight decay, and also tested several loss functions. Our best network slightly edged out the rolling regression for Away MSE (136.80) and showed solid performance for Home predictions (MSE: 153.00), but didn’t drastically outperform. The R² scores hovered just above 0.10—a modest improvement, but consistent.</p>
+<p>Lastly, we ran a Random Forest model. Despite being a more interpretable tree-based method, it performed roughly on par with the neural net. It posted MSEs of 153.42 (home) and 135.99 (away) with nearly identical MAE and R² values to the neural net. What’s interesting is that the feature importance output from the Random Forest lined up with our intuitions—team offensive efficiency and points-per-game came out as the most predictive.</p>
+<p>Across the board, away scores were easier to predict than home scores, which was surprising given home-field advantage is such a commonly discussed factor. Our working theory is that variance is higher for home teams—more fan and coaching pressure, or just noise.</p>
+<p>Ultimately, no model was a silver bullet. All performed in the same ballpark, with MAE in the 9.5–10.4 range. Still, the neural network gave us the most flexibility to tune custom objectives and loss functions, and that’s where we saw the most potential for future improvements. Every time we iterated—rolling averages, tuning layers, adjusting dropout—the model nudged forward. This project really showed us that small refinements and football-specific engineering go a long way in a messy dataset like this.</p>
+<p><span class="math display">\[
+\begin{array}{lcccccc}
+\textbf{Model} &amp; \textbf{Home MSE} &amp; \textbf{Home MAE} &amp; \text{Home } R^2 &amp; \textbf{Away MSE} &amp; \textbf{Away MAE} &amp; \text{Away } R^2 \\
+\hline
+\text{Baseline (No RA)} &amp; 166.80 &amp; 10.40 &amp; 0.132 &amp; 158.72 &amp; 10.18 &amp; 0.136 \\
+\text{Regression (RA)}  &amp; 152.29 &amp; 10.05 &amp; 0.112 &amp; 138.24 &amp; 9.60 &amp; 0.099 \\
+\text{NN (Tuned)}       &amp; 153.00 &amp; 10.06 &amp; 0.108 &amp; 136.80 &amp; 9.57 &amp; 0.109 \\
+\text{Random Forest}    &amp; 153.42 &amp; 10.10 &amp; 0.106 &amp; 135.99 &amp; 9.45 &amp; 0.114 \\
+\end{array}
+\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_files/figure-html/cell-7-1-image.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="report_files/figure-html/cell-8-1-image.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
+</figure>
+</div>
+<p>One of the biggest takeaways from the residual plots is how close the neural net and linear regression models really were. Despite building a fairly deep architecture—with four layers, batch normalization, ReLU activations, and dropout for regularization—the NN didn’t drastically outperform the rolling linear model. That said, the residuals for the NN are slightly tighter on away scores, and the MAE confirms a small advantage. This reinforces a core theme from the project: marginal gains. Every layer we added, every dropout tweak, every tuning of hidden sizes nudged the model forward just a bit—but the gains were incremental. It also highlighted the strength of a simple, well-engineered linear model when using meaningful features like rolling averages. In a domain as noisy and chaotic as college football, even a custom multi-layer network can only do so much better than a smart baseline.</p>
+</section>
+<section id="concluding-discussion" class="level1">
+<h1>Concluding Discussion</h1>
+<p>The goal of this project was to develop a machine learning model capable of predicting the final scores of NCAA Division I football games between Power Five teams using historical box score data. We engineered rolling average features, created delta-based predictors, and tested multiple modeling approaches including linear regression, random forests, and a custom neural network. While the modeling process was methodologically sound and the pipeline was well-structured, the predictive performance of our models was ultimately limited.</p>
+<p>Our baseline linear regression model produced Mean Absolute Errors (MAEs) of 10.69 for home scores and 10.02 for away scores. The improved linear regression model, which incorporated delta features and rolling windows, offered slight improvements, reducing MAEs to 10.05 (home) and 9.60 (away). Our custom neural network model, trained with tailored loss functions and hyperparameter tuning, performed similarly with MAEs of 10.06 and 9.57, and R² values of approximately 0.11 for both home and away scores.</p>
+<p>When compared to a random guessing baseline—where scores were drawn from the historical distribution of past games—our models did outperform in terms of MAE, but not by a wide margin. The random baseline produced MAEs of 15.61 (home) and 15.33 (away), which demonstrates that our models captured some structure in the data, but their improvements were moderate and far from highly accurate.</p>
+<p>To contextualize our results, it’s helpful to compare them with performance benchmarks from higher-level models used in professional sports analytics and betting markets. Industry-leading score prediction models, such as those developed by sportsbooks or advanced analytics firms like ESPN’s Football Power Index (FPI) or FiveThirtyEight’s Elo-based models, typically achieve MAEs in the range of 6 to 8 points per team. These models often incorporate proprietary data, expert-curated priors, real-time injury reports, betting line adjustments, and player-level inputs–none of which were available in our project. Given these constraints, our model’s MAEs in the low 9 to 10 range represent a decent first step, but fall short of the accuracy achieved by more sophisticated or data-rich systems.</p>
+<p>These results indicate that predicting college football scores is a challenging task, even with detailed historical data. Game outcomes can hinge on unrecorded factors such as injuries, weather, coaching decisions, and in-game dynamics—none of which were captured in our dataset. Unlike classification problems such as predicting win/loss outcomes, score regression requires precise modeling of many noisy components, which proved difficult with the features available.</p>
+<p>If we had access to richer data, including player-level information, team depth charts, betting lines, and environmental conditions, we believe performance could be significantly improved. Additional time and computational resources would also allow us to experiment with more complex architectures, such as gradient-boosted trees or attention-based neural networks, and to run more extensive hyperparameter searches. While our models did not achieve high predictive accuracy, the project met its broader goals of building a working pipeline, exploring different modeling techniques, and understanding the strengths and limitations of statistical prediction in sports. These insights are valuable not only for refining future models but also for appreciating the unpredictability and complexity of college football itself.</p>
+</section>
+<section id="group-contributions" class="level1">
+<h1>Group Contributions</h1>
+<section id="jackson" class="level3">
+<h3 class="anchored" data-anchor-id="jackson">Jackson</h3>
+<p>Jackson led the development of the neural network model using PyTorch, including the custom FootballNet architecture and the integration of multiple domain-specific loss functions. He also ran and logged the hyperparameter grid search, analyzed the model performance metrics, and compared results across all modeling approaches. Jackson was responsible for writing the abstract, introduction, values statement, and results sections of the blog post and ensured that the final write-up communicated both the technical depth and the broader implications of the project. He also contributed to debugging and optimizing the full modeling pipeline on GitHub.</p>
+</section>
+<section id="evan" class="level3">
+<h3 class="anchored" data-anchor-id="evan">Evan</h3>
+<p>Evan was primarily responsible for implementing and refining the feature engineering pipeline, including the creation of rolling averages and delta features. He handled the data cleaning process, managed the chronological train/validation/test split, and contributed significantly to the exploratory data analysis. Evan also led the implementation and tuning of the baseline and improved linear regression models, and he created several key visualizations—such as the residual plots and calibration graphs—for the final blog post. Evan wrote the remaining sections of the blog post that Jackson did not.</p>
+</section>
+</section>
+<section id="personal-reflections" class="level1">
+<h1>Personal Reflections</h1>
+<section id="evan-1" class="level3">
+<h3 class="anchored" data-anchor-id="evan-1">Evan</h3>
+<p>Through the process of researching, implementing, and communicating this project, I gained a much deeper and more technical understanding of the challenges involved in predicting college football scores using machine learning. Although I had experience working with data in the past, this project pushed me to engage more critically with the concepts of data representation and feature quality. Feature engineering quickly emerged as the most impactful and difficult part of the pipeline. I developed rolling average features across key statistics like total yards, penalties, turnovers, and third-down efficiency, applying temporal shifting and group-based aggregation to ensure that the model only had access to past information. I also transformed team-level stats into matchup-specific features by calculating home vs.&nbsp;away differentials, a step that significantly improved model structure and interpretability. This process taught me how important it is to encode domain knowledge into the feature space before reaching for more complex models.</p>
+<p>Despite thoughtful engineering, I learned how difficult it is to map even carefully constructed features to accurate continuous predictions—especially for an outcome as noisy and multifactorial as college football scores. My initial hope was to build a model that could rival benchmarks from industry-grade systems or betting markets. In reality, my best-performing model, a custom neural network trained with domain-specific loss functions, achieved a mean absolute error of about 9.6 points. While this was a measurable improvement over a random guessing baseline, it was still a bit behind the 6–8 MAE typically achieved by top-performing systems that rely on proprietary or real-time data inputs. In that sense, I fell short of my original performance goals. Still, I consider the project a success in terms of what I learned. I now better understand the difference between model complexity and predictive power—and how gains often come from improving data inputs rather than relying solely on more advanced algorithms.</p>
+<p>This experience has reshaped how I’ll approach future data science projects, both academically and professionally. I’ve come to appreciate the massive influence of feature engineering, especially in structured prediction tasks where raw data alone fails to reveal strong trends. I now think more carefully about time-aware validation splits, information leakage, and the need to align features with the task’s context. I also learned to expect setbacks—whether it’s disappointing performance metrics or debugging obscure errors in PyTorch—and to view those moments as opportunities to refine my approach. Going forward, I’ll carry these lessons into future coursework, applied analytics roles, and personal projects. If anything, this project reminded me that modeling is often the final step—and that the real work lies in shaping the data in ways that truly reflect the complexity of the world we’re trying to model.</p>
+</section>
+<section id="jackson-1" class="level3">
+<h3 class="anchored" data-anchor-id="jackson-1">Jackson</h3>
+<p>One of the biggest things I learned in this project is just how important it is to work on something you genuinely care about. As someone who loves college football, this didn’t feel like just another school assignment. I actually looked forward to digging into the data, understanding the metrics, and thinking about how different features could connect to the outcome of a game. It’s way easier to stay focused and motivated when the problem feels fun. That buy-in made everything—researching, debugging, refining the model—feel worth it.</p>
+<p>I also came in with the assumption that machine learning would be more “automatic.” Like, I thought the neural network would just destroy the linear model because it’s more complex and has more buzz around it. But what I found is that progress in ML isn’t magic—it’s usually a series of small, gritty improvements. We spent hours tuning our NN’s dropout rate, learning rate, and hidden layers, and still ended up only slightly edging out our rolling linear regression. That was humbling. And honestly, the biggest jumps in performance didn’t even come from the neural net tuning—they came from the feature engineering. It’s easy to get caught up in the training loop and think that optimizing the model is where all the gains are made, but most of our improvements came when we started using better inputs: switching from in-game stats to pre-game averages, rolling windows, and even just realizing we needed to calculate something as basic as points per game. That part really stuck with me.</p>
+<p>In terms of goals, I feel like we hit the mark. Our model didn’t blow past expectations in terms of performance, but I think the way we iterated, tested, and explained our choices showed a lot of growth. I’m proud of the way we approached the project methodically. It wasn’t about chasing the flashiest metrics—it was about building something that made sense and learning from every step along the way.</p>
+<p>I’ll definitely carry this experience with me. Not just technically—though I do feel more confident implementing and debugging models now—but also in terms of project ownership. Choosing a topic that intersects with your interests makes everything click more naturally. I’ll look for that alignment in future classes and eventually in my career. If I can keep working on problems I actually care about, I know I’ll be way more engaged, and the quality of my work will follow.</p>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-anyama2015application" class="csl-entry" role="listitem">
+Anyama, Oscar Uzoma, and Chinwe Peace Igiri. 2015. <span>“An Application of Linear Regression &amp; Artificial Neural Network Model in the NFL Result Prediction.”</span>
+</div>
+<div id="ref-boll2023gridiron" class="csl-entry" role="listitem">
+Boll, Luke. 2023. <span>“Gridiron Genius: Using Neural Networks to Predict College Football.”</span>
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
